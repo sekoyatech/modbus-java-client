@@ -1,63 +1,191 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.sekoya.modbus</groupId>
-  <artifactId>modbus-server</artifactId>
-  <version>0.0.1</version>
-  <packaging>jar</packaging>
+    <parent>
+        <groupId>com.sekoya.modbus</groupId>
+        <artifactId>modbus-sdk</artifactId>
+        <version>0.0.1</version>
+    </parent>
+    <groupId>com.sekoya.modbus.writer</groupId>
+    <artifactId>modbus-writer</artifactId>
+    <version>0.0.1</version>
+    <packaging>jar</packaging>
 
-  <name>modbus-server</name>
-  <url>https://maven.apache.org</url>
+    <name>modbus-writer</name>
+    <url>https://maven.apache.org</url>
 
-  <properties>
-    <java.version>17</java.version>
-    <maven.compiler.source>${java.version}</maven.compiler.source>
-    <maven.compiler.target>${java.version}</maven.compiler.target>
-    <maven.compiler.release>${java.version}</maven.compiler.release>
-    <maven.plugin.compiler.version>3.11.0</maven.plugin.compiler.version>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.plugin.compiler.version>3.8.1</maven.plugin.compiler.version>
+        <java.version>11</java.version>
+        <maven.version>3.9.6</maven.version>
+        <maven-jar-plugin.version>3.3.0</maven-jar-plugin.version>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <maven.compiler.release>${java.version}</maven.compiler.release>
 
-  <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
+    </properties>
 
-  <build>
-    <finalName>modbus-server</finalName>
-    <plugins>
-      <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>${maven.plugin.compiler.version}</version>
-        <configuration>
-          <target>${java.version}</target>
-          <source>${java.version}</source>
-        </configuration>
-      </plugin>
+    <dependencies>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>1.7.36</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fazecast</groupId>
+            <artifactId>jSerialComm</artifactId>
+            <version>2.4.0</version>
+        </dependency>
+        <!-- Alternative serial library https://mvnrepository.com/artifact/com.github.purejavacomm/purejavacomm -->
+        <dependency>
+            <groupId>com.github.purejavacomm</groupId>
+            <artifactId>purejavacomm</artifactId>
+            <version>1.0.2.RELEASE</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.scream3r/jssc -->
+        <dependency>
+            <groupId>org.scream3r</groupId>
+            <artifactId>jssc</artifactId>
+            <version>2.8.0</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.rxtx/rxtx -->
+        <dependency>
+            <groupId>org.rxtx</groupId>
+            <artifactId>rxtx</artifactId>
+            <version>2.1.7</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.github.kochedykov/jlibmodbus -->
+
+        <dependency>
+            <groupId>io.github.flyingdew</groupId>
+            <artifactId>jlibmodbus</artifactId>
+            <version>1.2.9.7</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.digitalpetri.modbus/modbus-master-tcp -->
+        <dependency>
+            <groupId>com.digitalpetri.modbus</groupId>
+            <artifactId>modbus-master-tcp</artifactId>
+            <version>1.2.0</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.digitalpetri.modbus/modbus-slave-tcp -->
+        <dependency>
+            <groupId>com.digitalpetri.modbus</groupId>
+            <artifactId>modbus-slave-tcp</artifactId>
+            <version>1.2.0</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.digitalpetri.modbus/modbus-core -->
+        <dependency>
+            <groupId>com.digitalpetri.modbus</groupId>
+            <artifactId>modbus-core</artifactId>
+            <version>1.2.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>1.7.36</version>
+        </dependency>
+
+        <!--        junit 5-->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>5.7.2</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>5.7.2</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-launcher</artifactId>
+            <version>1.7.2</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-runner</artifactId>
+            <version>1.7.2</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-suite-api</artifactId>
+            <version>1.7.2</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-testkit</artifactId>
+            <version>1.7.2</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.vintage</groupId>
+            <artifactId>junit-vintage-engine</artifactId>
+            <version>5.7.2</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-params</artifactId>
+            <version>5.7.2</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-migrationsupport</artifactId>
+            <version>5.7.2</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>5.7.2</version>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <finalName>modbus-writer</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven.plugin.compiler.version}</version>
+                <configuration>
+                    <target>${java.version}</target>
+                    <source>${java.version}</source>
+                </configuration>
+            </plugin>
 
 
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-jar-plugin</artifactId>
-        <version>3.3.0</version>
-        <configuration>
-          <archive>
-            <manifest>
-              <addClasspath>true</addClasspath>
-              <classpathPrefix>lib/</classpathPrefix>
-              <mainClass>com.sekoya.modbus.server.App</mainClass>
-            </manifest>
-          </archive>
-        </configuration>
-      </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>${maven-jar-plugin.version}</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <classpathPrefix>lib/</classpathPrefix>
+                            <mainClass>com.sekoya.modbus.writer.App</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
 
-    </plugins>
+        </plugins>
 
-  </build>
+    </build>
 
 </project>
